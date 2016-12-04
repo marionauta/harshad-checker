@@ -1,18 +1,14 @@
 use std::io::{self, Read};
 
-fn digits_sum(n: u64) -> u64 {
-    if n < 10 {
-        return n;
+fn digits_sum(n: u64, acc: u64) -> u64 {
+    match n {
+        0 => acc,
+        _ => digits_sum(n / 10, n % 10 + acc),
     }
-
-    let m = n / 10;
-    let r = n % 10;
-
-    digits_sum(m) + r
 }
 
 fn harshad(n: u64) -> bool {
-    n % digits_sum(n) == 0
+    n % digits_sum(n, 0) == 0
 }
 
 fn read_stdin() -> Result<String, io::Error> {
